@@ -710,7 +710,7 @@ class CI_Input {
 	/**
 	 * Clean Keys
 	 *
-	 * Internal method that helps to prevent malicious users
+	 * Internal method that helps to prevent malicious tm_user
 	 * from trying to exploit keys we make sure that keys are
 	 * only named with alpha-numeric text and a few other items.
 	 *

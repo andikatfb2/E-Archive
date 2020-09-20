@@ -11,7 +11,7 @@ class Dashboard_model extends CI_Model {
 
     public function get_count_record($table)
     {
-        $query = $this->db->count_all($table);
+        $query = $this->db->select($table);
 
         return $query;
     }
@@ -97,4 +97,20 @@ class Dashboard_model extends CI_Model {
 
         return round(($this->memory_usage() * 100) / $this->memory_peak_usage($real), 0).$unit;
     }
+
+    public function get_dokumen($table)
+    {
+        $query = $this->db->get($table);
+
+        if ($query->num_rows() > 0)
+        {
+            return $query->result_array();
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
+    
+
 }

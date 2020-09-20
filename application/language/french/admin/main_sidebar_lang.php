@@ -21,11 +21,11 @@ $lang['menu_search'] = 'Rechercher';
 
 
 /* * */$lang['menu_administration']             = 'Administration';
-/* ****** */$lang['menu_users']                 = 'Utilisateurs';
-/* *********** */$lang['menu_users_profile']    = 'Profil';
-/* *********** */$lang['menu_users_deactivate'] = 'Désactiver';
-/* *********** */$lang['menu_users_create']     = 'Créer';
-/* *********** */$lang['menu_users_edit']       = 'Modifier';
+/* ****** */$lang['menu_tm_user']                 = 'Utilisateurs';
+/* *********** */$lang['menu_tm_user_profile']    = 'Profil';
+/* *********** */$lang['menu_tm_user_deactivate'] = 'Désactiver';
+/* *********** */$lang['menu_tm_user_create']     = 'Créer';
+/* *********** */$lang['menu_tm_user_edit']       = 'Modifier';
 
 /* ****** */$lang['menu_security_groups']       = 'Groupes de sécurité';
 /* *********** */$lang['menu_groups_create']    = 'Créer';

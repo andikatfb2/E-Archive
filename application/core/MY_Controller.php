@@ -69,7 +69,7 @@ class Admin_Controller extends MY_Controller
 	{
 		parent::__construct();
 
-        if ( ! $this->ion_auth->logged_in() OR ! $this->ion_auth->is_admin())
+        if ( ! $this->ion_auth->logged_in())
         {
             redirect('auth/login', 'refresh');
         }
@@ -114,7 +114,7 @@ class Public_Controller extends MY_Controller
 	{
 		parent::__construct();
 
-        if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin())
+        if ($this->ion_auth->logged_in())
         {
             $this->data['admin_link'] = TRUE;
         }

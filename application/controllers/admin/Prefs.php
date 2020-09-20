@@ -18,7 +18,7 @@ class Prefs extends Admin_Controller {
 
 	public function index()
 	{
-        if ( ! $this->ion_auth->logged_in() OR ! $this->ion_auth->is_admin())
+        if ( ! $this->ion_auth->logged_in())
         {
             redirect('auth/login', 'refresh');
         }
@@ -127,7 +127,7 @@ class Prefs extends Admin_Controller {
 
 	public function reset_interfaces_admin()
 	{
-		if ( ! $this->ion_auth->logged_in() OR ! $this->ion_auth->is_admin())
+		if ( ! $this->ion_auth->logged_in())
 		{
 			redirect('auth', 'refresh');
 		}
@@ -153,7 +153,7 @@ class Prefs extends Admin_Controller {
 
 	public function reset_interfaces_public()
 	{
-		if ( ! $this->ion_auth->logged_in() OR ! $this->ion_auth->is_admin())
+		if ( ! $this->ion_auth->logged_in())
 		{
 			redirect('auth', 'refresh');
 		}

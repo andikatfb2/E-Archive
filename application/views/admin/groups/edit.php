@@ -32,12 +32,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <?php echo form_input($group_description); ?>
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <?php echo lang('groups_color', 'bgcolor', array('class' => 'col-sm-2 control-label')); ?>
                                             <div class="col-sm-3">
                                                 <?php echo form_input($group_bgcolor); ?>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
                                                 <div class="btn-group">

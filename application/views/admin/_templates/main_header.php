@@ -60,7 +60,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <li>
                                         <ul class="menu">
                                             <li><!-- start notification -->
-                                                <a href="#"><i class="fa fa-users text-aqua"></i> 5 new members joined today</a>
+                                                <a href="#"><i class="fa fa-tm_user text-aqua"></i> 5 new members joined today</a>
                                             </li><!-- end notification -->
                                         </ul>
                                     </li>
@@ -96,8 +96,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </ul>
                             </li>
 
-<?php endif; ?>
-<?php if ($admin_prefs['user_menu'] == TRUE): ?>
+                        <?php endif; ?>
+                        <?php if ($admin_prefs['user_menu'] == TRUE): ?>
                             <!-- User Account -->
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -109,7 +109,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <img src="<?php echo base_url($avatar_dir . '/m_001.png'); ?>" class="img-circle" alt="User Image">
                                         <p><?php echo $user_login['firstname'].$user_login['lastname']; ?><small><?php echo lang('header_member_since'); ?> <?php echo date('d-m-Y', $user_login['created_on']); ?></small></p>
                                     </li>
-                                    <li class="user-body">
+                                    <!-- <li class="user-body">
                                         <div class="row">
                                             <div class="col-xs-4 text-center">
                                                 <a href="#"><?php echo lang('header_followers'); ?></a>
@@ -121,10 +121,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <a href="#"><?php echo lang('header_friends'); ?></a>
                                             </div>
                                         </div>
-                                    </li>
+                                    </li> -->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <a href="<?php echo site_url('admin/users/profile/'.$user_login['id']); ?>" class="btn btn-default btn-flat"><?php echo lang('header_profile'); ?></a>
+                                            <a href="<?php echo site_url('admin/tm_user/profile/'.$user_login['id']); ?>" class="btn btn-default btn-flat"><?php echo lang('header_profile'); ?></a>
                                         </div>
                                         <div class="pull-right">
                                             <a href="<?php echo site_url('auth/logout/admin'); ?>" class="btn btn-default btn-flat"><?php echo lang('header_sign_out'); ?></a>

@@ -279,7 +279,7 @@ class CI_Form_validation {
 	/**
 	 * Set Error Message
 	 *
-	 * Lets users set their own error messages on the fly. Note:
+	 * Lets tm_user set their own error messages on the fly. Note:
 	 * The key name has to match the function name that it corresponds to.
 	 *
 	 * @param	array
@@ -749,7 +749,7 @@ class CI_Form_validation {
 			elseif ( ! method_exists($this, $rule))
 			{
 				// If our own wrapper function doesn't exist we see if a native PHP function does.
-				// Users can use any native PHP function call that has one param.
+				// tm_user can use any native PHP function call that has one param.
 				if (function_exists($rule))
 				{
 					// Native PHP functions issue warnings if you pass them more parameters than they use

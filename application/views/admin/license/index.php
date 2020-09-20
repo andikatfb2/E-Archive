@@ -86,7 +86,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td>AdminLTE</td>
+                                        <td>E-Arsip</td>
                                         <td>130-000-203</td>
                                         <td>Framework</td>
                                         <td>$0.00</td>

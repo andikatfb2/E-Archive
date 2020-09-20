@@ -129,7 +129,7 @@ class CI_Session {
 			return;
 		}
 
-		// Sanitize the cookie, because apparently PHP doesn't do that for userspace handlers
+		// Sanitize the cookie, because apparently PHP doesn't do that for tm_userpace handlers
 		if (isset($_COOKIE[$this->_config['cookie_name']])
 			&& (
 				! is_string($_COOKIE[$this->_config['cookie_name']])

@@ -177,6 +177,41 @@ if ( ! function_exists('anchor'))
 	}
 }
 
+if ( ! function_exists('anchor_confirmation'))
+{
+	/**
+	 * Anchor Link - Pop-up version
+	 *
+	 * Creates an anchor based on the local URL. The link
+	 * opens a new window based on the attributes specified.
+	 *
+	 * @param	string	the URL
+	 * @param	string	the link title
+	 * @param	mixed	any attributes
+	 * @return	string
+	 */
+function anchor_confirmation($uri = '', $title = '', $attributes = '')
+	{
+		$title = (string) $title;
+
+		$site_url = is_array($uri)
+			? site_url($uri)
+			: (preg_match('#^(\w+:)?//#i', $uri) ? $uri : site_url($uri));
+
+		if ($title === '')
+		{
+			$title = $site_url;
+		}
+
+		if ($attributes !== '')
+		{
+			$attributes = _stringify_attributes($attributes);
+		}
+
+		return '<a href="'.$site_url.'"'.$attributes.' onclick="return confirm(\'Are you sure you want to delete this item?\');"'.$title.'</a>';
+	}
+}
+
 // ------------------------------------------------------------------------
 
 if ( ! function_exists('anchor_popup'))

@@ -78,7 +78,7 @@ abstract class CI_Session_driver implements SessionHandlerInterface {
 	 * Success and failure return values
 	 *
 	 * Necessary due to a bug in all PHP 5 versions where return values
-	 * from userspace handlers are not handled properly. PHP 7 fixes the
+	 * from tm_userpace handlers are not handled properly. PHP 7 fixes the
 	 * bug, so we need to return different values depending on the version.
 	 *
 	 * @see	https://wiki.php.net/rfc/session.user.return-value

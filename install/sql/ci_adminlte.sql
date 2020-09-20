@@ -12,7 +12,7 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 
 --
--- Base de données :  `ci_adminlte`
+-- Base de données :  `earsip`
 --
 
 -- --------------------------------------------------------
@@ -103,11 +103,11 @@ INSERT INTO `public_preferences` (`id`, `transition_page`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `users`
+-- Structure de la table `tm_user`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
+DROP TABLE IF EXISTS `tm_user`;
+CREATE TABLE IF NOT EXISTS `tm_user` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `ip_address` varchar(15) NOT NULL,
   `username` varchar(100) NOT NULL,
@@ -129,34 +129,34 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `users`
+-- Déchargement des données de la table `tm_user`
 --
 
-INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
+INSERT INTO `tm_user` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
 (1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, NULL, 1, 'Admin', 'istrator', 'ADMIN', '0');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `users_groups`
+-- Structure de la table `tm_user_groups`
 --
 
-DROP TABLE IF EXISTS `users_groups`;
-CREATE TABLE IF NOT EXISTS `users_groups` (
+DROP TABLE IF EXISTS `tm_user_groups`;
+CREATE TABLE IF NOT EXISTS `tm_user_groups` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` int(11) UNSIGNED NOT NULL,
   `group_id` mediumint(8) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uc_users_groups` (`user_id`,`group_id`),
-  KEY `fk_users_groups_users1_idx` (`user_id`),
-  KEY `fk_users_groups_groups1_idx` (`group_id`)
+  UNIQUE KEY `uc_tm_user_groups` (`user_id`,`group_id`),
+  KEY `fk_tm_user_groups_tm_user1_idx` (`user_id`),
+  KEY `fk_tm_user_groups_groups1_idx` (`group_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `users_groups`
+-- Déchargement des données de la table `tm_user_groups`
 --
 
-INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
+INSERT INTO `tm_user_groups` (`id`, `user_id`, `group_id`) VALUES
 (1, 1, 1);
 
 --
@@ -164,9 +164,9 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 --
 
 --
--- Contraintes pour la table `users_groups`
+-- Contraintes pour la table `tm_user_groups`
 --
-ALTER TABLE `users_groups`
-  ADD CONSTRAINT `fk_users_groups_groups1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_users_groups_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `tm_user_groups`
+  ADD CONSTRAINT `fk_tm_user_groups_groups1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tm_user_groups_tm_user1` FOREIGN KEY (`user_id`) REFERENCES `tm_user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 COMMIT;

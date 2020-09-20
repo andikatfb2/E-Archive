@@ -14,6 +14,7 @@ $lang['actions_cancel']         = 'Annuler';
 $lang['actions_create']         = 'Créer';
 $lang['actions_default_values'] = 'Valeurs par défaut';
 $lang['actions_edit']           = 'Modifier';
+$lang['actions_download']       = 'Download';
 $lang['actions_ok']             = 'Ok';
 $lang['actions_no']             = 'Non';
 $lang['actions_reset']          = 'Réinitialiser';

@@ -48,7 +48,7 @@ class Ion_auth
 	public $_extra_set = array();
 
 	/**
-	 * caching of users and their groups
+	 * caching of tm_user and their groups
 	 *
 	 * @var array
 	 **/
@@ -140,7 +140,7 @@ class Ion_auth
 		{
 			// Get user information
 			$identifier = $this->ion_auth_model->identity_column; // use model identity column, so it can be overridden in a controller
-			$user = $this->where($identifier, $identity)->where('active', 1)->users()->row();
+			$user = $this->where($identifier, $identity)->where('active', 1)->tm_user()->row();
 
 			if ($user)
 			{
@@ -201,7 +201,7 @@ class Ion_auth
 		$this->ion_auth_model->trigger_events('pre_password_change');
 
 		$identity = $this->config->item('identity', 'ion_auth');
-		$profile  = $this->where('forgotten_password_code', $code)->users()->row(); // pass the code to profile
+		$profile  = $this->where('forgotten_password_code', $code)->tm_user()->row(); // pass the code to profile
 
 		if (!$profile)
 		{
@@ -264,7 +264,7 @@ class Ion_auth
 	 */
 	public function forgotten_password_check($code)
 	{
-		$profile = $this->where('forgotten_password_code', $code)->users()->row(); // pass the code to profile
+		$profile = $this->where('forgotten_password_code', $code)->tm_user()->row(); // pass the code to profile
 
 		if (!is_object($profile))
 		{
@@ -515,9 +515,9 @@ class Ion_auth
 		}
 		else
 		{
-			$users_groups = $this->ion_auth_model->get_users_groups($id)->result();
+			$tm_user_groups = $this->ion_auth_model->get_tm_user_groups($id)->result();
 			$groups_array = array();
-			foreach ($users_groups as $group)
+			foreach ($tm_user_groups as $group)
 			{
 				$groups_array[$group->id] = $group->name;
 			}

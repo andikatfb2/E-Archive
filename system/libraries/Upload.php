@@ -633,6 +633,10 @@ class CI_Upload {
 	{
 		// Make sure it has a trailing slash
 		$this->upload_path = rtrim($path, '/').'/';
+		if(!is_dir($this->upload_path)){
+			if (!mkdir($this->upload_path, 0777, true))  die('Failed to create folders...');
+		} //mkdir($this->upload_path,);
+
 		return $this;
 	}
 

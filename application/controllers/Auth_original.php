@@ -23,23 +23,19 @@ class Auth extends CI_Controller {
 			// redirect them to the login page
 			redirect('auth/login', 'refresh');
 		}
-		elseif (!$this->ion_auth->is_admin()) // remove this elseif if you want to enable this for non-admins
-		{
-			// redirect them to the home page because they must be an administrator to view this
-			return show_error('You must be an administrator to view this page.');
-		}
 		else
 		{
 			// set the flash data error message if there is one
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
-			//list the users
-			$this->data['users'] = $this->ion_auth->users()->result();
-			foreach ($this->data['users'] as $k => $user)
+			//list the tm_user
+			$this->data['tm_user'] = $this->ion_auth->tm_user()->result();
+			foreach ($this->data['tm_user'] as $k => $user)
 			{
-				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
+				$this->data['tm_user'][$k]->groups = $this->ion_auth->get_tm_user_groups($user->id)->result();
 			}
-
+			
+			print_r($this->data);die;
 			$this->_render_page('auth/index', $this->data);
 		}
 	}
@@ -55,29 +51,21 @@ class Auth extends CI_Controller {
 
 		if ($this->form_validation->run() == true)
 		{
-			// check to see if the user is logging in
-			// check for "remember me"
 			$remember = (bool) $this->input->post('remember');
 
 			if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember))
 			{
-				//if the login is successful
-				//redirect them back to the home page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect('/', 'refresh');
+				redirect('/admin', 'refresh');
 			}
 			else
 			{
-				// if the login was un-successful
-				// redirect them back to the login page
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
 				redirect('auth/login', 'refresh'); // use redirects instead of loading views for compatibility with MY_Controller libraries
 			}
 		}
 		else
 		{
-			// the user is not logging in so display the login page
-			// set the flash data error message if there is one
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
 			$this->data['identity'] = array('name' => 'identity',
@@ -211,7 +199,7 @@ class Auth extends CI_Controller {
 		else
 		{
 			$identity_column = $this->config->item('identity','ion_auth');
-			$identity = $this->ion_auth->where($identity_column, $this->input->post('email'))->users()->row();
+			$identity = $this->ion_auth->where($identity_column, $this->input->post('email'))->tm_user()->row();
 
 			if(empty($identity)) {
 
@@ -343,10 +331,6 @@ class Auth extends CI_Controller {
 		{
 			$activation = $this->ion_auth->activate($id, $code);
 		}
-		else if ($this->ion_auth->is_admin())
-		{
-			$activation = $this->ion_auth->activate($id);
-		}
 
 		if ($activation)
 		{
@@ -365,7 +349,7 @@ class Auth extends CI_Controller {
 	// deactivate the user
 	function deactivate($id = NULL)
 	{
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		if (!$this->ion_auth->logged_in())
 		{
 			// redirect them to the home page because they must be an administrator to view this
 			return show_error('You must be an administrator to view this page.');
@@ -397,7 +381,7 @@ class Auth extends CI_Controller {
 				}
 
 				// do we have the right userlevel?
-				if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin())
+				if ($this->ion_auth->logged_in())
 				{
 					$this->ion_auth->deactivate($id);
 				}
@@ -413,7 +397,7 @@ class Auth extends CI_Controller {
 	{
 		$this->data['title'] = "Create User";
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		if (!$this->ion_auth->logged_in())
 		{
 			redirect('auth', 'refresh');
 		}
@@ -423,7 +407,7 @@ class Auth extends CI_Controller {
 		// validate form input
 		$this->form_validation->set_rules('first_name', $this->lang->line('create_user_validation_fname_label'), 'required');
 		$this->form_validation->set_rules('last_name', $this->lang->line('create_user_validation_lname_label'), 'required');
-		$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email|is_unique['.$tables['users'].'.email]');
+		$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email|is_unique['.$tables['tm_user'].'.email]');
 		$this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'required');
 		$this->form_validation->set_rules('company', $this->lang->line('create_user_validation_company_label'), 'required');
 		$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
@@ -507,14 +491,14 @@ class Auth extends CI_Controller {
 	{
 		$this->data['title'] = "Edit User";
 
-		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() && !($this->ion_auth->user()->row()->id == $id)))
+		if (!$this->ion_auth->logged_in() && !($this->ion_auth->user()->row()->id == $id)))
 		{
 			redirect('auth', 'refresh');
 		}
 
 		$user = $this->ion_auth->user($id)->row();
 		$groups=$this->ion_auth->groups()->result_array();
-		$currentGroups = $this->ion_auth->get_users_groups($id)->result();
+		$currentGroups = $this->ion_auth->get_tm_user_groups($id)->result();
 
 		// validate form input
 		$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'required');
@@ -552,23 +536,16 @@ class Auth extends CI_Controller {
 					$data['password'] = $this->input->post('password');
 				}
 
+				$groupData = $this->input->post('groups');
 
+				if (isset($groupData) && !empty($groupData)) {
 
-				// Only allow updating groups if user is admin
-				if ($this->ion_auth->is_admin())
-				{
-					//Update the groups user belongs to
-					$groupData = $this->input->post('groups');
+					$this->ion_auth->remove_from_group('', $id);
 
-					if (isset($groupData) && !empty($groupData)) {
-
-						$this->ion_auth->remove_from_group('', $id);
-
-						foreach ($groupData as $grp) {
-							$this->ion_auth->add_to_group($grp, $id);
-						}
-
+					foreach ($groupData as $grp) {
+						$this->ion_auth->add_to_group($grp, $id);
 					}
+
 				}
 
 			// check to see if we are updating the user
@@ -576,28 +553,12 @@ class Auth extends CI_Controller {
 			    {
 			    	// redirect them back to the admin page if admin, or to the base url if non admin
 				    $this->session->set_flashdata('message', $this->ion_auth->messages() );
-				    if ($this->ion_auth->is_admin())
-					{
-						redirect('auth', 'refresh');
-					}
-					else
-					{
-						redirect('/', 'refresh');
-					}
-
-			    }
+				    redirect('/', 'refresh');
 			    else
 			    {
 			    	// redirect them back to the admin page if admin, or to the base url if non admin
 				    $this->session->set_flashdata('message', $this->ion_auth->errors() );
-				    if ($this->ion_auth->is_admin())
-					{
-						redirect('auth', 'refresh');
-					}
-					else
-					{
-						redirect('/', 'refresh');
-					}
+				    redirect('/', 'refresh');
 
 			    }
 
@@ -658,7 +619,7 @@ class Auth extends CI_Controller {
 	{
 		$this->data['title'] = $this->lang->line('create_group_title');
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		if (!$this->ion_auth->logged_in())
 		{
 			redirect('auth', 'refresh');
 		}
@@ -711,7 +672,7 @@ class Auth extends CI_Controller {
 
 		$this->data['title'] = $this->lang->line('edit_group_title');
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		if (!$this->ion_auth->logged_in())
 		{
 			redirect('auth', 'refresh');
 		}

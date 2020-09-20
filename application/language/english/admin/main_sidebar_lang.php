@@ -17,17 +17,18 @@ $lang['menu_search'] = 'Search';
 /* * */$lang['menu_access_website']             = 'Access to the Web site';
 
 /* * */$lang['menu_main_navigation']            = 'Main Navigation';
-/* ****** */$lang['menu_dashboard']             = 'Dashboard';
+/* ****** */$lang['menu_dashboard']             = 'Halaman Utama';
+/* *********** */$lang['menu_dashboard_create'] = 'Tambah Dokumen';
 
 
 /* * */$lang['menu_administration']             = 'Administration';
-/* ****** */$lang['menu_users']                 = 'Users';
-/* *********** */$lang['menu_users_profile']    = 'Profile';
-/* *********** */$lang['menu_users_deactivate'] = 'Deactivate';
-/* *********** */$lang['menu_users_create']     = 'Create';
-/* *********** */$lang['menu_users_edit']       = 'Edit';
+/* ****** */$lang['menu_tm_user']                 = 'User Profile';
+/* *********** */$lang['menu_tm_user_profile']    = 'Profile';
+/* *********** */$lang['menu_tm_user_deactivate'] = 'Deactivate';
+/* *********** */$lang['menu_tm_user_create']     = 'Tambah User';
+/* *********** */$lang['menu_tm_user_edit']       = 'Edit User';
 
-/* ****** */$lang['menu_security_groups']       = 'Security groups';
+/* ****** */$lang['menu_security_groups']       = 'Konfigurasi Dokumen';
 /* *********** */$lang['menu_groups_create']    = 'Create';
 /* *********** */$lang['menu_groups_edit']      = 'Edit';
 
@@ -36,10 +37,16 @@ $lang['menu_search'] = 'Search';
 /* **************** */$lang['menu_int_admin']   = 'Administration';
 /* **************** */$lang['menu_int_public']  = 'Public';
 
-/* ****** */$lang['menu_files']                 = 'Files';
+/* ****** */$lang['menu_files']                 = 'Halaman Utama';
 /* ****** */$lang['menu_database_utility']      = 'Database utility';
+/* ****** */$lang['menu_dokumen_add']    	  	= 'Tambah Dokumen';
+/* ****** */$lang['menu_dokumen_edit']    	  	= 'Edit Dokumen';
+/* ****** */$lang['menu_dokumen_delete']    	= 'Edit Dokumen';
 
 
 /* * */$lang['menu_webapp']                     = 'Web application';
 /* ****** */$lang['menu_license']               = 'License';
 /* ****** */$lang['menu_resources']             = 'Resources';
+
+/* * */$lang['menu_konfig_dokumen']        		= 'Konfigurasi Dokumen';
+/* ****** */$lang['menu_konfig_dokumen_add']	= 'Tambah Jenis Dokumen';

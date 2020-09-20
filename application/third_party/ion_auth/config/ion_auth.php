@@ -27,18 +27,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | -------------------------------------------------------------------------
 | Database table names.
 */
-$config['tables']['users']           = 'users';
+$config['tables']['tm_user']           = 'tm_user';
 $config['tables']['groups']          = 'groups';
-$config['tables']['users_groups']    = 'users_groups';
+$config['tables']['tm_user_groups']    = 'tm_user_groups';
 $config['tables']['login_attempts']  = 'login_attempts';
 
 /*
- | Users table column and Group table column you want to join WITH.
+ | tm_user table column and Group table column you want to join WITH.
  |
- | Joins from users.id
+ | Joins from tm_user.id
  | Joins from groups.id
  */
-$config['join']['users']  = 'user_id';
+$config['join']['tm_user']  = 'user_id';
 $config['join']['groups'] = 'group_id';
 
 /*
@@ -91,9 +91,9 @@ $config['min_password_length']        = 8;                   // Minimum Required
 $config['max_password_length']        = 20;                  // Maximum Allowed Length of Password
 $config['email_activation']           = FALSE;               // Email Activation for registration
 $config['manual_activation']          = FALSE;               // Manual Activation for registration
-$config['remember_users']             = TRUE;                // Allow users to be remembered and enable auto-login
+$config['remember_tm_user']             = TRUE;                // Allow tm_user to be remembered and enable auto-login
 $config['user_expire']                = 86500;               // How long to remember the user (seconds). Set to zero for no expiration
-$config['user_extend_on_login']       = FALSE;               // Extend the users cookies every time they auto-login
+$config['user_extend_on_login']       = FALSE;               // Extend the tm_user cookies every time they auto-login
 $config['track_login_attempts']       = TRUE;                // Track the number of failed login attempts for each user or ip.
 $config['track_login_ip_address']     = TRUE;                // Track login attempts by IP Address, if FALSE will track based on identity. (Default: TRUE)
 $config['maximum_login_attempts']     = 3;                   // The maximum number of failed login attempts.

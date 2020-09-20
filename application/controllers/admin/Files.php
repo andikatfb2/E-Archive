@@ -18,7 +18,7 @@ class Files extends Admin_Controller {
 
 	public function index()
 	{
-        if ( ! $this->ion_auth->logged_in() OR ! $this->ion_auth->is_admin())
+        if ( ! $this->ion_auth->logged_in())
         {
             redirect('auth/login', 'refresh');
         }
@@ -38,7 +38,7 @@ class Files extends Admin_Controller {
 
 	public function do_upload()
 	{
-        if ( ! $this->ion_auth->logged_in() OR ! $this->ion_auth->is_admin())
+        if ( ! $this->ion_auth->logged_in())
         {
             redirect('auth/login', 'refresh');
         }
@@ -46,7 +46,7 @@ class Files extends Admin_Controller {
         {
             /* Conf */
             $config['upload_path']      = './upload/';
-            $config['allowed_types']    = 'gif|jpg|png';
+            $config['allowed_types']    = 'gif|jpg|png|pdf|docs';
             $config['max_size']         = 2048;
             $config['max_width']        = 1024;
             $config['max_height']       = 1024;

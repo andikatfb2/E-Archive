@@ -20,7 +20,7 @@ class Groups extends Admin_Controller {
 
 	public function index()
 	{
-        if ( ! $this->ion_auth->logged_in() OR ! $this->ion_auth->is_admin())
+        if ( ! $this->ion_auth->logged_in())
         {
             redirect('auth/login', 'refresh');
         }
@@ -29,9 +29,9 @@ class Groups extends Admin_Controller {
             /* Breadcrumbs */
             $this->data['breadcrumb'] = $this->breadcrumbs->show();
 
-            $this->data['groups'] = $this->ion_auth->groups()->result();
+            $this->data['tr_divisi'] = $this->db->query("select * from tr_divisi")->result();
+            $this->data['tr_jenis'] = $this->db->query("select * from tr_jenis")->result();
 
-            /* Load Template */
             $this->template->admin_render('admin/groups/index', $this->data);
         }
     }
@@ -39,7 +39,7 @@ class Groups extends Admin_Controller {
 
 	public function create()
 	{
-		if ( ! $this->ion_auth->logged_in() OR ! $this->ion_auth->is_admin())
+		if ( ! $this->ion_auth->logged_in())
 		{
 			redirect('auth', 'refresh');
 		}
@@ -91,10 +91,6 @@ class Groups extends Admin_Controller {
         {
             redirect('auth/login', 'refresh');
         }
-        elseif ( ! $this->ion_auth->is_admin())
-		{
-            return show_error('You must be an administrator to view this page.');
-        }
         else
         {
             $this->load->view('admin/groups/delete');
@@ -104,7 +100,7 @@ class Groups extends Admin_Controller {
 
 	public function edit($id)
 	{
-		if ( ! $this->ion_auth->logged_in() OR ! $this->ion_auth->is_admin() OR ! $id OR empty($id))
+		if ( ! $this->ion_auth->logged_in() OR ! $id OR empty($id))
 		{
 			redirect('auth', 'refresh');
 		}
@@ -172,5 +168,93 @@ class Groups extends Admin_Controller {
 
         /* Load Template */
         $this->template->admin_render('admin/groups/edit', $this->data);
+	}
+
+
+// divisi
+	public function create_divisi() {
+		 if ( ! $this->ion_auth->logged_in()) {
+            redirect('auth/login', 'refresh');
+         } else {
+             $this->data['error'] = '';
+             $this->breadcrumbs->unshift(2, lang('menu_dashboard_create'), 'admin/dashboard/create');
+             $this->data['breadcrumb'] = $this->breadcrumbs->show();
+        $this->template->admin_render('admin/groups/create_divisi', $this->data);
+		}
+	}
+
+	public function store_divisi() {
+		 if ( ! $this->ion_auth->logged_in()) {
+            redirect('auth/login', 'refresh');
+         } else {
+             $this->data['error'] = '';
+             $this->breadcrumbs->unshift(2, lang('menu_dashboard_create'), 'admin/dashboard/create');
+             $this->data['breadcrumb'] = $this->breadcrumbs->show();
+
+              $data = array(
+                    'divisi_id' => '',
+                    'divisi_name' => $this->input->post('divisi_name')
+                );
+
+                $this->db->insert('tr_divisi',$data);
+                redirect('admin/groups', 'refresh');
+		}
+	}
+
+	public function delete_divisi($id) { 
+		if ( ! $this->ion_auth->logged_in()) {
+            redirect('auth/login', 'refresh');
+         } else {
+             $this->breadcrumbs->unshift(2, lang('menu_dashboard_create'), 'admin/dashboard/create');
+             $this->data['breadcrumb'] = $this->breadcrumbs->show();
+
+		  $this->db->where('divisi_id',$id);
+          $this->db->delete('tr_divisi');
+          redirect('admin/groups', 'refresh');
+      }
+	}
+
+	// jenis 
+	public function create_jenis() {
+		 if ( ! $this->ion_auth->logged_in()) {
+            redirect('auth/login', 'refresh');
+         } else {
+             $this->data['error'] = '';
+             $this->breadcrumbs->unshift(2, lang('menu_dashboard_create'), 'admin/dashboard/create');
+             $this->data['breadcrumb'] = $this->breadcrumbs->show();
+
+        	$this->template->admin_render('admin/groups/create_jenis', $this->data);
+		}
+	}
+
+	public function store_jenis() {
+		 if ( ! $this->ion_auth->logged_in()) {
+            redirect('auth/login', 'refresh');
+         } else {
+             $this->data['error'] = '';
+             $this->breadcrumbs->unshift(2, lang('menu_dashboard_create'), 'admin/dashboard/create');
+             $this->data['breadcrumb'] = $this->breadcrumbs->show();
+
+              $data = array(
+                    'jenis_id' => '',
+                    'jenis_name' => $this->input->post('jenis_name')
+                );
+
+                $this->db->insert('tr_jenis',$data);
+                redirect('admin/groups', 'refresh');
+		}
+	}
+
+	public function delete_jenis($id) { 
+		if ( ! $this->ion_auth->logged_in()) {
+            redirect('auth/login', 'refresh');
+         } else {
+             $this->breadcrumbs->unshift(2, lang('menu_dashboard_create'), 'admin/dashboard/create');
+             $this->data['breadcrumb'] = $this->breadcrumbs->show();
+             
+		  $this->db->where('jenis_id',$id);
+          $this->db->delete('tr_jenis');
+          redirect('admin/groups', 'refresh');
+      }
 	}
 }
