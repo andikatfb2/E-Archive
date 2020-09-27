@@ -66,7 +66,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <th>Dokumen Upload</th>
                                                 <th>
                                                     <!-- <div class="box-header with-border"> -->
-                                                        <span class="box-title"><?php echo anchor('admin/dashboard/create', '<i class="fa fa-plus"></i> Tambah Dokumen', array('class' => 'btn btn-block btn-primary btn-flat')); ?></span>
+                                                    <span class="box-title"><?php echo anchor('admin/dashboard/create', '<i class="fa fa-plus"></i> Tambah Dokumen', array('class' => 'btn btn-block btn-primary btn-flat')); ?></span>
                                                     <!-- </div> -->
                                                 </th>
                                             </tr>
